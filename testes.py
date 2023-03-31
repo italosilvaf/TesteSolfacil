@@ -1,5 +1,5 @@
 
-from core.security import  CRIPTO, verificar_senha, gerar_hash_senha, valida_cnpj, calcula_digito, eh_sequencia, apenas_numeros
+from core.security import  CRIPTO, verificar_senha, gerar_hash_senha, valida_cnpj, verifica_apenas_numeros, eh_sequencia, apenas_numeros
 import unittest
 
 
@@ -33,7 +33,7 @@ class TestSenha(unittest.TestCase):
 
 
 # Testes relacionados a CNPJ.
-class TestCnpjFunctions(unittest.TestCase):
+class TestCnpj(unittest.TestCase):
 
     # Função que testa se a validação de CNPJ está funcional.
     def test_valida_cnpj(self):
@@ -70,6 +70,29 @@ class TestCnpjFunctions(unittest.TestCase):
         # Testa a entrada sem caracteres inválidos de um CNPJ.
         self.assertEqual(apenas_numeros(cnpj_sem_caracteres_invalidos), cnpj_sem_caracteres_invalidos)
 
+
+
+# Testes relacionados a CEP.
+class TestCep(unittest.TestCase):
+
+    # Função que testa se o CEP tem apenas números.
+    def test_verifica_apenas_numeros(self):
+        cep = '38701642'
+        cep_errado1 = '3870i642'
+        cep_errado2 = '3870@642'
+        cep_errado3 = '3870.642'
+
+        # Testa a validação de um CEP válido.
+        self.assertTrue(verifica_apenas_numeros(cep))
+
+        # Testa a validação de um CEP com letra.
+        self.assertFalse(verifica_apenas_numeros(cep_errado1))
+
+        # Testa a validação de um CEP com simbolo.
+        self.assertFalse(verifica_apenas_numeros(cep_errado2))
+
+        # Testa a validação de um CEP com pontuação.
+        self.assertFalse(verifica_apenas_numeros(cep_errado3))
 
 # Verificação se está sendo executado com o programa principal.
 if __name__ == '__main__':

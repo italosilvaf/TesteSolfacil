@@ -74,3 +74,11 @@ def eh_sequencia(cnpj):
 # Função para remover qualquer caractere que não seja um número.
 def apenas_numeros(x):
     return re.sub(r'[^0-9]', '', x)
+
+
+# Função para verifica se o CEP contém apenas números
+def verifica_apenas_numeros(cep):
+    if re.match(r'^\d+$', cep):
+        return True
+    else:
+        return False

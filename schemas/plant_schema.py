@@ -1,6 +1,7 @@
 from typing import Optional
 from pydantic import BaseModel, validator, EmailStr
 from datetime import datetime
+from core.security import verifica_apenas_numeros
 
 
 # Schema base da usina
@@ -14,9 +15,13 @@ class PlantSchemaBase(BaseModel):
     partner_id: Optional[int]
 
     @validator('cep')
-    def validate_cep_length(cls, cep):
+    def validate_cep(cls, cep):
         if len(cep) != 8:
-            raise ValueError('CEP Inválido!')
+            raise ValueError('CEP Inválido, não contem 8 caracteres! ')
+        
+        if verifica_apenas_numeros(cep) == False:
+            raise ValueError('CEP Inválido, não contem apenas números!')
+
         return cep
 
     class Config:
