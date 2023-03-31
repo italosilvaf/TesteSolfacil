@@ -1,6 +1,5 @@
 from passlib.context import CryptContext
 import re
-import requests
 
 # Configuração do algoritmo e força de criptografia.
 CRIPTO = CryptContext(schemes=['bcrypt'],
